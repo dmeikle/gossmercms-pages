@@ -17,28 +17,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminPageSectionsController extends BaseController<PageSection, PageSectionDto, PageSectionRequest, AdminPageSectionResponse, PageSectionListResponse> {
 
     public AdminPageSectionsController(PageSectionsHandler handler) {
-        super(handler, PageSectionListResponse.class);
+        super(handler, PageSectionListResponse.class, true);
     }
     @Override
         protected PageSectionDto toDto(PageSectionRequest request) {
             return PageSectionDto.builder()
-                        .pageId(request.getPageId())
-                        .type(request.getType())
-                        .theme(request.getTheme())
-                        .source(request.getSource())
-                        .sortOrder(request.getSortOrder())
-                        .kicker(request.getKicker())
-                        .title(request.getTitle())
-                        .body(request.getBody())
-                        .image(request.getImage())
-                        .imageAlt(request.getImageAlt())
-                        .buttonLabel(request.getButtonLabel())
-                        .buttonHref(request.getButtonHref())
-                        .quote(request.getQuote())
-                        .attribution(request.getAttribution())
-                        .template(request.getTemplate())
-                        .columns(request.getColumns())
-                        .build();
+                    .id(request.getId())
+                    .pageId(request.getPageId())
+                    .type(request.getType())
+                    .theme(request.getTheme())
+                    .source(request.getSource())
+                    .sortOrder(request.getSortOrder())
+                    .kicker(request.getKicker())
+                    .title(request.getTitle())
+                    .body(request.getBody())
+                    .image(request.getImage())
+                    .imageAlt(request.getImageAlt())
+                    .buttonLabel(request.getButtonLabel())
+                    .buttonHref(request.getButtonHref())
+                    .quote(request.getQuote())
+                    .attribution(request.getAttribution())
+                    .template(request.getTemplate())
+                    .columns(request.getColumns())
+                    .build();
 
         }
 

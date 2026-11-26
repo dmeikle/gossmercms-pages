@@ -20,6 +20,9 @@ public class PageDto implements DtoWithId{
     private String title;
     private String slug;
     private String description;
+    private String seoTitle;
+    private String seoDescription;
+    private String seoImage;
     private String status;
     private UUID createdBy;
     private Instant deletedAt;
@@ -32,6 +35,9 @@ public class PageDto implements DtoWithId{
             .title(title)
             .slug(slug)
             .description(description)
+            .seoTitle(seoTitle)
+            .seoDescription(seoDescription)
+            .seoImage(seoImage)
             .status(status)
             .createdBy(createdBy)
             .deletedAt(deletedAt)

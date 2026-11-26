@@ -1,6 +1,7 @@
 package com.gossamercms.cms.data;
 
 import com.gossamercms.cms.dtos.PageDto;
+import com.gossamercms.cms.dtos.responses.PageListResponse;
 import com.gossamercms.cms.dtos.responses.PageResponse;
 import com.gossamercms.cms.models.Page;
 import com.gossamercms.mvc.annotations.ModuleDbService;
@@ -9,7 +10,10 @@ import com.gossamercms.mvc.data.DataSourceAdapter;
 import com.gossamercms.mvc.data.DataSourceManager;
 import tools.jackson.databind.ObjectMapper;
 
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 @ModuleDbService
@@ -44,6 +48,9 @@ public class PagesDbService extends BaseDbService<Page, PageDto> {
                     'title', p.title,
                     'slug', p.slug,
                     'description', p.description,
+                    'seoTitle', p."seoTitle",
+                    'seoDescription', p."seoDescription",
+                    'seoImage', p."seoImage",
                     'status', p.status,
                     'createdAt', p."createdAt" AT TIME ZONE 'UTC',
                     'sections', COALESCE((
@@ -142,6 +149,32 @@ public class PagesDbService extends BaseDbService<Page, PageDto> {
                     return objectMapper.readValue(json, PageResponse.class);
                 }
         );
+    }
+
+    public List<PageListResponse> listPublishedPages() {
+        String sql = """
+                SELECT p.id,
+                       p.title,
+                       p.slug,
+                       p.status,
+                       p."createdAt"
+                FROM cms_pages p
+                WHERE p.status = 'published'
+                  AND p."deletedAt" IS NULL
+                ORDER BY p."createdAt" ASC NULLS LAST, p.title ASC
+                """;
+        return dsManager.get(meta.datasourceKey())
+                .getNamedParameterJdbcTemplate()
+                .query(sql, Map.of(), (rs, rowNum) -> {
+                    Timestamp createdAt = rs.getTimestamp("createdAt");
+                    return PageListResponse.builder()
+                            .id(rs.getObject("id", UUID.class))
+                            .title(rs.getString("title"))
+                            .slug(rs.getString("slug"))
+                            .status(rs.getString("status"))
+                            .createdAt(createdAt == null ? null : createdAt.toInstant())
+                            .build();
+                });
     }
 
 }

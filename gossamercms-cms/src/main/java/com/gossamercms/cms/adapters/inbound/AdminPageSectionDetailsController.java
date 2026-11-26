@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminPageSectionDetailsController extends BaseController<PageSectionDetail, PageSectionDetailDto, PageSectionDetailRequest,  PageSectionDetailResponse, PageSectionDetailListResponse> {
 
     public AdminPageSectionDetailsController(PageSectionDetailsHandler handler) {
-        super(handler, PageSectionDetailListResponse.class);
+        super(handler, PageSectionDetailListResponse.class, true);
     }
     @Override
         protected PageSectionDetailDto toDto(PageSectionDetailRequest request) {

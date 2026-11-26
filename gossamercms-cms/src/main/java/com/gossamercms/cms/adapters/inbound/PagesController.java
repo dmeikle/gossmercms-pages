@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/cms/pages")
@@ -26,7 +28,7 @@ public class PagesController extends TypedBaseController<Page, PageDto, PageRequ
 
     public PagesController(PagesHandler handler,
                            PagesService pagesService) {
-        super(handler, PageListResponse.class);
+        super(handler, PageListResponse.class, true);
         this.pagesService = pagesService;
     }
 
@@ -36,6 +38,9 @@ public class PagesController extends TypedBaseController<Page, PageDto, PageRequ
                         .title(request.getTitle())
                         .slug(request.getSlug())
                         .description(request.getDescription())
+                        .seoTitle(request.getSeoTitle())
+                        .seoDescription(request.getSeoDescription())
+                        .seoImage(request.getSeoImage())
                         .status(request.getStatus())
                         .build();
 
@@ -48,10 +53,18 @@ public class PagesController extends TypedBaseController<Page, PageDto, PageRequ
                            .title(dto.getTitle())
                            .slug(dto.getSlug())
                            .description(dto.getDescription())
+                           .seoTitle(dto.getSeoTitle())
+                           .seoDescription(dto.getSeoDescription())
+                           .seoImage(dto.getSeoImage())
                            .status(dto.getStatus())
                            .createdAt(dto.getCreatedAt())
                            .build();
 
+        }
+
+        @GetMapping("/menu")
+        public ApiResponse<List<PageListResponse>> menu() {
+            return ApiResponse.ok(pagesService.listPublishedPages());
         }
 
         @GetMapping("/{page}")

@@ -22,6 +22,9 @@ public class Page implements BaseModel{
     private String title;
     private String slug;
     private String description;
+    private String seoTitle;
+    private String seoDescription;
+    private String seoImage;
     private String status;
     private UUID createdBy;
     private Instant deletedAt;
@@ -34,6 +37,9 @@ public class Page implements BaseModel{
             .title(title)
             .slug(slug)
             .description(description)
+            .seoTitle(seoTitle)
+            .seoDescription(seoDescription)
+            .seoImage(seoImage)
             .status(status)
             .createdBy(createdBy)
             .deletedAt(deletedAt)
@@ -48,6 +54,9 @@ public static final ModelMeta META = ModelMeta.builderWithId("cms_pages")
     .column("title", String.class, 255)
     .column("slug", String.class, 255)
     .column("description", String.class)
+    .column("seoTitle", String.class, 255)
+    .column("seoDescription", String.class)
+    .column("seoImage", String.class, 2048)
     .column("status", String.class, 50)
     .column("createdBy", UUID.class)
     .column("deletedAt", Instant.class)

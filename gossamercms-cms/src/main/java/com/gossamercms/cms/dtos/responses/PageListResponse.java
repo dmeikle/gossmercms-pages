@@ -20,6 +20,9 @@ public class PageListResponse {
     private String title;
     private String slug;
     private String description;
+    private String seoTitle;
+    private String seoDescription;
+    private String seoImage;
     private String status;
     private Instant createdAt;
 

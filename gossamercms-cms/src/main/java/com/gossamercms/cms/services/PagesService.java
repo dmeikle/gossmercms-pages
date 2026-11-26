@@ -5,9 +5,12 @@ import com.gossamercms.cms.data.PageSectionIncludesDbService;
 import com.gossamercms.cms.data.PageSectionsDbService;
 import com.gossamercms.cms.data.PagesDbService;
 import com.gossamercms.cms.dtos.PageDto;
+import com.gossamercms.cms.dtos.responses.PageListResponse;
 import com.gossamercms.cms.dtos.responses.PageResponse;
 import com.gossamercms.mvc.annotations.ModuleService;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @ModuleService
 @RequiredArgsConstructor
@@ -20,5 +23,9 @@ public class PagesService {
 
     public PageResponse getPageDetails(PageDto page) {
         return pagesDbService.getPageDetails(page);
+    }
+
+    public List<PageListResponse> listPublishedPages() {
+        return pagesDbService.listPublishedPages();
     }
 }

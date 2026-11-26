@@ -13,6 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PageSectionRequest {
     private UUID pageId;
+    private UUID id;
     private String type;
     private String theme;
     private String source;

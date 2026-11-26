@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminPagesController extends BaseController<Page, PageDto, PageRequest, AdminPageResponse, PageListResponse> {
 
     public AdminPagesController(PagesHandler handler) {
-        super(handler, PageListResponse.class, false);
+        super(handler, PageListResponse.class, true);
     }
     @Override
         protected PageDto toDto(PageRequest request) {
@@ -25,6 +25,9 @@ public class AdminPagesController extends BaseController<Page, PageDto, PageRequ
                         .title(request.getTitle())
                         .slug(request.getSlug())
                         .description(request.getDescription())
+                        .seoTitle(request.getSeoTitle())
+                        .seoDescription(request.getSeoDescription())
+                        .seoImage(request.getSeoImage())
                         .status(request.getStatus())
                         .build();
 
@@ -37,6 +40,9 @@ public class AdminPagesController extends BaseController<Page, PageDto, PageRequ
                            .title(dto.getTitle())
                            .slug(dto.getSlug())
                            .description(dto.getDescription())
+                           .seoTitle(dto.getSeoTitle())
+                           .seoDescription(dto.getSeoDescription())
+                           .seoImage(dto.getSeoImage())
                            .status(dto.getStatus())
                            .createdAt(dto.getCreatedAt())
                            .build();
